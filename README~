@@ -1,0 +1,70 @@
+n_body2 (alpha)
+
+ALL CODE IS PROVIDED WITHOUT WARRANTY. THERE IS NO GUARANTEE THAT THE PHYSICS IS CORRECT.
+
+Contents:
+
+1. Introduction
+2. Methods
+3. Compiling and Running
+4. Version Log
+5. Contact
+6. Recommended Reading
+
+
+1. Introduction
+
+n_body2 was written by me as a project to help learn computational methods for simulating structure such as galaxies, dark matter halos etc.
+Clearly such simulations are usually run on supercomputers not an Intel Core-2 Duo 2.13GHz desktop! As such this code is intenting as a way
+of learning simulation methods/techniques rather that creating my own mini universe. Despite this I have tried and continue to try and make
+the code as efficient as possible so that atleast fiarly interesting test cases can be considered.
+
+This code has also served as a way for me to learn c and so the porgramming style is probably not very good. This is something I hope to im
+prove with time. Any guidance would be very much welcomed! 
+
+Version control - stable snapshots will start with 0.1.0 continuing to 0.x.0 for later states where additional functionality has been added.
+All versions 0.x.y.z (x!=0) should therefore be considered unstable. If I ever get to the point where I am confindent in the physics being correct
+I will release as version 1.x.y.z. Until such a point the code should be considered as alpha! I claim no warranty of it being correct!
+
+
+2. Methods
+
+The main code written in c deals with the phsyics outputting data to stdio so that it can be piped into a data file. The data file is then 
+analysed with a python script from which plots can be created to view energy and particle paths. 
+
+
+3. Compiling and Running
+
+To get the code either download it directly from the github site or use git to make a local mirror.
+
+The code uses the stdio.h, math.h and stdlib.h libraries which sould be installed by default on linux systems. The python script uses python-numpy and 
+python-matplotlib. To install these on a Debian/Apt based system run
+
+	apt-get install python-numpy python-matplotlib
+	
+To run n_body2 first you need to comile it. The easiest way is with make or gcc
+
+	make n_body2 -lm
+
+or 
+
+	gcc n_body2.c -lm
+	
+Then to run the code 
+
+	./n_body2 > data.txt
+	
+This will also then pipe the data into a text file called data.txt.
+
+ffmpeg -r 20 -qscale 2 -i plots/Plot%05d.png Sim4h.mp4
+
+
+4. Version Log
+
+
+
+
+
+5. Contact
+
+Please contact me at astrolinux22 'at' gmail 'dot' com if you have any queries, tips or corrections.
