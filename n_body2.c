@@ -11,13 +11,13 @@
 
 /* #### Define Program Parameters #### */
 
-#define NumP 10 														/*Number of Particles*/
-#define dt 0.1 															/*Timestep in days*/
-#define Ndt 100000 														/*Number of Timesteps*/
+#define NumP 4 														/*Number of Particles*/
+#define dt 0.2														/*Timestep in days*/
+#define Ndt 1000														/*Number of Timesteps*/
 #define G 6.67E-11 														/*Gravitational Constant*/
-#define e 1E11 															/*Epsilon Value*/
-#define prec 100 														/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
-#define size 1E12 														/*Universe Size*/
+#define e 1E09 															/*Epsilon Value*/
+#define prec 10 														/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
+#define size 4.0E11 													/*Universe Size*/
 
 
 /* #### Inititalize working arrays #### */
@@ -29,61 +29,78 @@ double new_pos[NumP][3]={{0.0}}; 										/*New Particle Positions in m (x,y,z)
 double new_vel[NumP][3]={{0.0}}; 										/*New Particle Velocities in ms^-1 (v_x,v_y,v_z)*/
 double time[NumP]={0.0}; 												/*Time Array in Days*/
 double data[Ndt][NumP][6]={{{0.0}}}; 									/*Output Data array [timestep][particle number][x,y,z,t,Ek,Ep]*/
-double dpos[NumP][4]={{0.0}}; 											/*Distance between particles for a given particle [particle #][dx,dy,dz,dr]*/
-double force[NumP][3]={{0.0}}; 											/*Force vectors [i][Fx,Fy,Fz]*/
-double Fx, Fy, Fz;														/*Force vectors*/
+double dpos[NumP][NumP][4]={{{0.0}}}; 											/*Distance between particles for a given particle [particle #][dx,dy,dz,dr]*/
+double force[NumP][NumP][3]={{{0.0}}}; 											/*Force vectors [i][Fx,Fy,Fz]*/
+double Fx[NumP] = {0.0};
+double Fy[NumP] = {0.0};
+double Fz[NumP] = {0.0};														/*Force vectors*/
 double kin_en[NumP]={0.0}; 												/*Particles Kinetic Energy*/
 double pot_en[NumP]={0.0}; 												/*Particles Potential Energy*/
 
 
 /* #### Functions #### */
 
+
+int Calc()
+{
+	
+	int z;
+	for (z=0; z < NumP; z++)
+	{
+		Fx[z] = 0.0;
+		Fy[z] = 0.0;
+		Fz[z] = 0.0;
+		pot_en[z] = 0.0;
+	}	
+	int i;
+	for (i=0; i<(NumP-1); i++)
+	{
+		int j;
+		/*pot_en[i] = 0.0;*/
+		for (j=(i+1); j<NumP; j++)
+		{
+			/*pot_en[j] = 0.0;*/
+			
+			int k;
+			for (k=0; k<3; k++)
+			{
+				dpos[i][j][k] = pos[i][k] - pos[j][k];
+				dpos[j][i][k] = - dpos[i][j][k];
+			}
+			dpos[i][j][3] = sqrt( pow(dpos[i][j][0],2) + pow(dpos[i][j][1],2) + pow(dpos[i][j][2],2) );
+			dpos[j][i][3] = dpos[i][j][3];
+			
+			/*Calculate Force in x-direction and append to Fx*/
+			force[i][j][0] = - (G * masses[i] * masses[j] * dpos[i][j][0]) / pow( sqrt(pow(dpos[i][j][3],2) + pow(e,2)) ,3);
+			force[j][i][0] = - force[i][j][0];
+			Fx[i] = Fx[i] + force[i][j][0];
+			Fx[j] = Fx[j] + force[j][i][0];
+			/*Calculate Force in y-direction and append to Fy*/
+			force[i][j][1] = - (G * masses[i] * masses[j] * dpos[i][j][1]) / pow( sqrt(pow(dpos[i][j][3],2) + pow(e,2)) ,3);
+			force[j][i][1] = - force[i][j][1];
+			Fy[i] = Fy[i] + force[i][j][1];
+			Fy[j] = Fy[j] + force[j][i][1];
+			/*Calculate Force in z-direction and append to Fz*/
+			force[i][j][2] = - (G * masses[i] * masses[j] * dpos[i][j][2]) / pow( sqrt(pow(dpos[i][j][3],2) + pow(e,2)) ,3);
+			force[j][i][2] = - force[i][j][2];
+			Fz[i] = Fz[i] + force[i][j][2];
+			Fz[j] = Fz[j] + force[j][i][2];
+			pot_en[i] = pot_en[i] - (G * masses[i] * masses[j])/(dpos[i][j][3]);
+			pot_en[j] = pot_en[j] - (G * masses[i] * masses[j])/(dpos[j][i][3]);
+		}
+	}
+	return 0;
+}
+
+
 int Iterate(particle_i,timestep)										/*Particle iteration function*/
 {
-	Fx = Fy = Fz = 0.0;													/*Initiate forces to zero*/
-	
-	pot_en[particle_i] = 0.0;											/*Set potential energy for particle_i to zero*/
-	
-	int i;
-	
-	for (i = 0; i < NumP; i++)											/*Loop over particles*/
-	{
-		
-		int j;
-		
-		for (j=0; j < 3; j++)											/*Loop over x,y,z*/
-		{
-			dpos[i][j] = pos[particle_i][j] - pos[i][j];				/*Caclulate particle seperation along axis*/
-		}
-		
-		/*Calculate particle radial seperation*/
-		dpos[i][3] = sqrt( pow(dpos[i][0],2) + pow(dpos[i][1],2) + pow(dpos[i][2],2) );
-		
-		/*Calculate Force in x-direction and append to Fx*/
-		force[particle_i][0] = - (G * masses[particle_i] * masses[i] * dpos[i][0]) / pow( sqrt(pow(dpos[i][3],2) + pow(e,2)) ,3);
-		Fx = Fx + force[particle_i][0];
-		
-		/*Calculate Force in y-direction and append to Fy*/
-		force[particle_i][1] = - (G * masses[particle_i] * masses[i] * dpos[i][1]) / pow( sqrt(pow(dpos[i][3],2) + pow(e,2)) ,3);
-		Fy = Fy + force[particle_i][1];
-		
-		/*Calculate Force in z-direction and append to Fz*/
-		force[particle_i][2] = - (G * masses[particle_i] * masses[i] * dpos[i][2]) / pow( sqrt(pow(dpos[i][3],2) + pow(e,2)) ,3);
-		Fz = Fz + force[particle_i][2];				
-		
-		if (dpos[i][3] != 0.0) 											/*Skip self potetials*/
-		{
-			/*Calculate potential energy of particle_i*/
-			pot_en[particle_i] = pot_en[particle_i] - (G * masses[particle_i] * masses[i])/(dpos[i][3]+1);
-		}		
-	}
-	
 	data[timestep][particle_i][5] = pot_en[particle_i];					/*Add potetial energy to data array*/
 	
 	/*Calculate new velocity in each direction and add to new_vel array*/
-	new_vel[particle_i][0] = vel[particle_i][0] + ((Fx * dt * 3600 * 24)/(masses[particle_i]));
-	new_vel[particle_i][1] = vel[particle_i][1] + ((Fy * dt * 3600 * 24)/(masses[particle_i]));
-	new_vel[particle_i][2] = vel[particle_i][2] + ((Fz * dt * 3600 * 24)/(masses[particle_i]));
+	new_vel[particle_i][0] = vel[particle_i][0] + ((Fx[particle_i] * dt * 3600 * 24)/(masses[particle_i]));
+	new_vel[particle_i][1] = vel[particle_i][1] + ((Fy[particle_i] * dt * 3600 * 24)/(masses[particle_i]));
+	new_vel[particle_i][2] = vel[particle_i][2] + ((Fz[particle_i] * dt * 3600 * 24)/(masses[particle_i]));
 	
 	/*Calculate new x positon and add to data array*/
 	new_pos[particle_i][0] = pos[particle_i][0] + (new_vel[particle_i][0] * dt * 3600 * 24);
@@ -98,9 +115,9 @@ int Iterate(particle_i,timestep)										/*Particle iteration function*/
 	data[timestep][particle_i][2] = new_pos[particle_i][2];
 	
 	/*Calculate velocities half a timestep for kinetic energy calcs*/
-	double vel_x = vel[particle_i][0] + ((Fx * dt * 3600 * 24 * 0.5)/(masses[particle_i]));
-	double vel_y = vel[particle_i][1] + ((Fy * dt * 3600 * 24 * 0.5)/(masses[particle_i]));
-	double vel_z = vel[particle_i][2] + ((Fz * dt * 3600 * 24 * 0.5)/(masses[particle_i]));
+	double vel_x = vel[particle_i][0] + ((Fx[particle_i] * dt * 3600 * 24 * 0.5)/(masses[particle_i]));
+	double vel_y = vel[particle_i][1] + ((Fy[particle_i] * dt * 3600 * 24 * 0.5)/(masses[particle_i]));
+	double vel_z = vel[particle_i][2] + ((Fz[particle_i] * dt * 3600 * 24 * 0.5)/(masses[particle_i]));
 	double vel_abs = sqrt(pow(vel_x,2) + pow(vel_y,2) + pow(vel_z,2));
 	
 	/*Calculate kinectic energy and add to kin_en array*/
@@ -122,10 +139,10 @@ int RandomPos()
 	int particles = 0;
 	for (particles=0; particles < NumP; particles++)
 	{
-		masses[particles] = 2E27;
-		pos[particles][0] = rand_range(min,max)*1.0E12;
-		pos[particles][1] = rand_range(min,max)*1.0E12;
-		pos[particles][2] = rand_range(min,max)*1.0E12;
+		masses[particles] = 2E31;
+		pos[particles][0] = rand_range(min,max)*size;
+		pos[particles][1] = rand_range(min,max)*size;
+		pos[particles][2] = rand_range(min,max)*size;
 	}
 	return 0;
 }
@@ -135,11 +152,30 @@ int RandomPos()
 
 int main()
 {
-	RandomPos(); 														/*Asign random positions to particles*/
+	/*RandomPos();*/ 														/*Asign random positions to particles*/
+	
+	pos[0][0] = 1.0E11;
+	pos[1][0] = -1.0E11;
+	pos[2][1] = 1.0E11;
+	pos[3][1] = -1.0E11;
+	
+	vel[0][1] = 2.0E4;
+	vel[1][1] = -2.0E4;
+	vel[2][0] = -2.0E4;
+	vel[3][0] = 2.0E4;
+
+	masses[0] = 2E30;
+	masses[1] = 2E30;
+	masses[2] = 2E30;
+	masses[3] = 2E30;
+
+
 	
    	int t; 																/*Initiate timestep counter*/
    	for (t = 0; t < Ndt; t++) 											/*Loop through timesteps*/
    	{
+		
+		Calc();															/*Calculate dpos and force arrays for this timestep*/
 		
     	int particle_i; 												/*Initiate particle counter*/
     	
