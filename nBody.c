@@ -86,7 +86,7 @@ int Calc()
 			Fz[i] = Fz[i] + force[i][j][2];
 			Fz[j] = Fz[j] + force[j][i][2];
 			pot_en[i] = pot_en[i] - (G * masses[i] * masses[j])/(dpos[i][j][3]);
-			pot_en[j] = pot_en[j] - (G * masses[i] * masses[j])/(dpos[j][i][3]);
+			/*pot_en[j] = pot_en[j] - (G * masses[i] * masses[j])/(dpos[j][i][3]);*/
 		}
 	}
 	return 0;
@@ -121,7 +121,7 @@ int Iterate(particle_i,timestep)										/*Particle iteration function*/
 	double vel_abs = sqrt(pow(vel_x,2) + pow(vel_y,2) + pow(vel_z,2));
 	
 	/*Calculate kinectic energy and add to kin_en array*/
-	kin_en[particle_i] = masses[particle_i]*pow(vel_abs,2);
+	kin_en[particle_i] = 0.5*masses[particle_i]*pow(vel_abs,2);
 	data[timestep][particle_i][4] = kin_en[particle_i];
 	
 	return 0;

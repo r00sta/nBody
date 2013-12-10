@@ -73,9 +73,9 @@ while (t < (Ndt*NumP)/Prec):
 	name = 'plots/Plot' + "%05d" %(count) + '.png'
 	count+=1
 	time = 'Time - ' + str(data[line][3]) + ' days '
-	py.title(time)
-	py.savefig(name)
-	py.cla()
+	plt.title(time)
+	plt.savefig(name)
+	plt.cla()
 	
 	#py.show()
 	t+=(NumP)

@@ -64,3 +64,11 @@ where -r defines the framerate and -qscale the quality (where 1 is best and high
 5. Contact
 
 Please contact me at astrolinux22 'at' gmail 'dot' com if you have any queries, tips or corrections.
+
+
+
+
+
+################
+
+git push --mirror https://github.com/astrolinux22/n_body2
