@@ -11,13 +11,15 @@
 
 /* #### Define Program Parameters #### */
 
-#define NumP 4 														/*Number of Particles*/
-#define dt 0.2														/*Timestep in days*/
-#define Ndt 1000														/*Number of Timesteps*/
+#define NumP 25 														/*Number of Particles*/
+#define dt 1.0														/*Timestep in days*/
+#define Ndt 20000														/*Number of Timesteps*/
 #define G 6.67E-11 														/*Gravitational Constant*/
-#define e 1E09 															/*Epsilon Value*/
-#define prec 10 														/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
-#define size 4.0E11 													/*Universe Size*/
+#define e 1E11 															/*Epsilon Value*/
+#define prec 200													/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
+#define size 1.0E13 												/*Universe Size*/
+#define a 1.0E-4															/*a(t) expansion factor. Start value a(t=0).*/
+#define M 2.0E30														/*Particle Mass*/
 
 
 /* #### Inititalize working arrays #### */
@@ -103,16 +105,17 @@ int Iterate(particle_i,timestep)										/*Particle iteration function*/
 	new_vel[particle_i][2] = vel[particle_i][2] + ((Fz[particle_i] * dt * 3600 * 24)/(masses[particle_i]));
 	
 	/*Calculate new x positon and add to data array*/
-	new_pos[particle_i][0] = pos[particle_i][0] + (new_vel[particle_i][0] * dt * 3600 * 24);
-	data[timestep][particle_i][0] = new_pos[particle_i][0];
+	new_pos[particle_i][0] = (1.0+a) * (pos[particle_i][0] + (new_vel[particle_i][0] * dt * 3600 * 24));
+	/*printf ("Pos[i][0] - %.2e \t New_Pos[i][0] - %.2e \t New_Pos/(1.0+a) - %.2e \n",pos[particle_i][0],new_pos[particle_i][0],new_pos[particle_i][0]/(1.0+a));*/
+	data[timestep][particle_i][0] = (new_pos[particle_i][0] / pow((1.0+a),(timestep+1)));
 	
 	/*Calculate new y positon and add to data array*/
-	new_pos[particle_i][1] = pos[particle_i][1] + (new_vel[particle_i][1] * dt * 3600 * 24);
-	data[timestep][particle_i][1] = new_pos[particle_i][1];
+	new_pos[particle_i][1] = (1.0+a) * (pos[particle_i][1] + (new_vel[particle_i][1] * dt * 3600 * 24));
+	data[timestep][particle_i][1] = (new_pos[particle_i][1] / pow((1.0+a),(timestep+1)));
 	
 	/*Calculate new z positon and add to data array*/
-	new_pos[particle_i][2] = pos[particle_i][2] + (new_vel[particle_i][2] * dt * 3600 * 24);
-	data[timestep][particle_i][2] = new_pos[particle_i][2];
+	new_pos[particle_i][2] = (1.0+a) * (pos[particle_i][2] + (new_vel[particle_i][2] * dt * 3600 * 24));
+	data[timestep][particle_i][2] = (new_pos[particle_i][2] / pow((1.0+a),(timestep+1)));
 	
 	/*Calculate velocities half a timestep for kinetic energy calcs*/
 	double vel_x = vel[particle_i][0] + ((Fx[particle_i] * dt * 3600 * 24 * 0.5)/(masses[particle_i]));
@@ -139,10 +142,10 @@ int RandomPos()
 	int particles = 0;
 	for (particles=0; particles < NumP; particles++)
 	{
-		masses[particles] = 2E31;
-		pos[particles][0] = rand_range(min,max)*size;
-		pos[particles][1] = rand_range(min,max)*size;
-		pos[particles][2] = rand_range(min,max)*size;
+		masses[particles] = M;
+		pos[particles][0] = rand_range(min,max)*(size/2.0);
+		pos[particles][1] = rand_range(min,max)*(size/2.0);
+		pos[particles][2] = rand_range(min,max)*(size/2.0);
 	}
 	return 0;
 }
@@ -152,8 +155,9 @@ int RandomPos()
 
 int main()
 {
-	/*RandomPos();*/ 														/*Asign random positions to particles*/
+	RandomPos(); 														/*Asign random positions to particles*/
 	
+	/*
 	pos[0][0] = 1.0E11;
 	pos[1][0] = -1.0E11;
 	pos[2][1] = 1.0E11;
@@ -168,8 +172,7 @@ int main()
 	masses[1] = 2E30;
 	masses[2] = 2E30;
 	masses[3] = 2E30;
-
-
+	*/
 	
    	int t; 																/*Initiate timestep counter*/
    	for (t = 0; t < Ndt; t++) 											/*Loop through timesteps*/
@@ -189,6 +192,8 @@ int main()
 		
 		for (i=0; i < NumP; i++) 										/*Iterate over particles*/
 		{
+			/*printf ("\n Posx %e \n", pos[i][0]);*/
+			/*printf ("\n Posx/(1+a) %e \n", pos[i][0]/(1+a));*/
 			int j;
 			for (j=0; j < 3; j++)
 			{

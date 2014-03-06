@@ -72,3 +72,4 @@ Please contact me at astrolinux22 'at' gmail 'dot' com if you have any queries, 
 ################
 
 git push --mirror https://github.com/astrolinux22/n_body2
+git pull https://github.com/astrolinux22/n_body2
