@@ -23,19 +23,19 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=8
-FILE_NAME_0=748;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2FnBody.c;0;4
-FILE_NAME_1=1733;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fanalysis.py;0;4
-FILE_NAME_2=2539;None;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2FREADME;0;4
-FILE_NAME_3=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Frandom.c;0;4
-FILE_NAME_4=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Ftest.c;0;4
-FILE_NAME_5=5890;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2Fn_body%2Foriginal%2Fn_body.py;0;4
-FILE_NAME_6=0;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2Fn_body%2Funiverse%2Funiverse_0.1.py;0;4
-FILE_NAME_7=3333;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FUni%2FYear_3%2FKey%20Skills%20A%2FComputing%20Project%2FGrav2.0%2FGrav2.1.py;0;4
-FILE_NAME_8=8007;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FLiveWallpaper%2Flive-wallpaper;0;4
+current_page=0
+FILE_NAME_0=753;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2FnBody.c;0;4
+FILE_NAME_1=1588;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fanalysis.py;0;4
+FILE_NAME_2=2418;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fanimation.py;0;4
+FILE_NAME_3=2539;None;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2FREADME;0;4
+FILE_NAME_4=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Frandom.c;0;4
+FILE_NAME_5=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Ftest.c;0;4
+FILE_NAME_6=5890;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2Fn_body%2Foriginal%2Fn_body.py;0;4
+FILE_NAME_7=0;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2Fn_body%2Funiverse%2Funiverse_0.1.py;0;4
+FILE_NAME_8=546;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fdecay.py;0;4
 
 [VTE]
-last_dir=/home/matthew/Documents/Programming/C
+last_dir=/home/matthew/Documents/Programming
 
 [build-menu]
 CFT_02_LB=

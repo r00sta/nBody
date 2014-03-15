@@ -4,6 +4,7 @@ import numpy as N	#Maths modules
 import sys	#System controls
 import subprocess
 import matplotlib.pyplot as plt #Matplotlib module
+import matplotlib.animation as animation
 import mpl_toolkits.mplot3d.axes3d as p3	#3D axis
 import argparse as ap	#Argument parser
 
@@ -19,16 +20,18 @@ def ImportData (datafile="data.txt"):
 	Ndt = int(data[1][2])
 	Prec = int(data[1][3])
 	Size = int(data[1][4])
+	Epsilon = int(data[1][5])
 	
 	print "Number of Particle -", NumP
 	print "Timestep in Days -", dt
 	print "Number of Timesteps -", Ndt
 	print "Simulation Time -", "%0.1e" %(Ndt*dt/365.25), "years /", Ndt*dt, "days"
-	print "The Universe size is %.1em \n" %Size
+	print "The Universe size is %.1em" %Size
+	print "The Epsilon Value is %.1em \n" %Epsilon
 	
-	return data,NumP,dt,Ndt,Prec,Size
-
-def IterateData (Ndt,NumP,Prec,Size,plot):
+	return data,NumP,dt,Ndt,Prec,Size,Epsilon
+	
+def IterateData (Ndt,NumP,Prec,Size,Epsilon,plot):
 	
 	Ek_array = N.zeros(Ndt/Prec)
 	Ep_array = N.zeros(Ndt/Prec)
@@ -50,14 +53,16 @@ def IterateData (Ndt,NumP,Prec,Size,plot):
 		sys.stdout.write('.')
 		sys.stdout.flush()
 				
+		area = float(N.pi * (Epsilon)**2)
+				
 		while (i < NumP):
 			line = t+i
 			
 			if (plot == "2D"):
-				plt.scatter(data[line][0],data[line][1],'bo')
+				plt.scatter(data[line][0],data[line][1],'bo',s=5)
 			elif (plot == "3D"):
-				ax.scatter(data[line][0],data[line][1],data[line][2],'bo')
-						
+				ax.scatter(data[line][0],data[line][1],data[line][2],'bo',s=5)
+									
 			Ek_array[t_actual] += data[line][4]
 			Ep_array[t_actual] += data[line][5]
 		
@@ -93,6 +98,8 @@ def IterateData (Ndt,NumP,Prec,Size,plot):
 		t_actual += 1
 		
 	return Ek_array,Ep_array,t_array
+	
+
 
 def PlotEnergy(Ek,Ep,t,title,NumP,Ndt,dt):
 	
@@ -140,11 +147,11 @@ if __name__ == "__main__":
 		print "\nRunning Analysis for Simulation - %s \n" %args.title
 	
 	if (args.data == None):
-		data,NumP,dt,Ndt,Prec,Size = ImportData()
+		data,NumP,dt,Ndt,Prec,Size,Epsilon = ImportData()
 	else:
-		data,NumP,dt,Ndt,Prec,Size = ImportData(args.data)
+		data,NumP,dt,Ndt,Prec,Size,Epsilon = ImportData(args.data)
 
-	Ek_array,Ep_array,t_array = IterateData(Ndt,NumP,Prec,Size,args.plots)
+	Ek_array,Ep_array,t_array = IterateData(Ndt,NumP,Prec,Size,Epsilon,args.plots)
 	
 	PlotEnergy(Ek_array,Ep_array,t_array,args.title,NumP,Ndt,dt)
 	

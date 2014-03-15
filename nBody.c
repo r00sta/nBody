@@ -11,15 +11,15 @@
 
 /* #### Define Program Parameters #### */
 
-#define NumP 25 														/*Number of Particles*/
-#define dt 1.0														/*Timestep in days*/
-#define Ndt 20000														/*Number of Timesteps*/
+#define NumP 1000 														/*Number of Particles*/
+#define dt 10.0														/*Timestep in days*/
+#define Ndt 2000														/*Number of Timesteps*/
 #define G 6.67E-11 														/*Gravitational Constant*/
-#define e 1E11 															/*Epsilon Value*/
-#define prec 200													/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
+#define e 1E10 															/*Epsilon Value*/
+#define prec 2													/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
 #define size 1.0E13 												/*Universe Size*/
-#define a 1.0E-4															/*a(t) expansion factor. Start value a(t=0).*/
-#define M 2.0E30														/*Particle Mass*/
+#define a 1.0E-5															/*a(t) expansion factor. Start value a(t=0).*/
+#define M 2.0E28														/*Particle Mass*/
 
 
 /* #### Inititalize working arrays #### */
@@ -205,9 +205,9 @@ int main()
    	
    	/*Data Output to stdio*/
    	
-   	printf ("NumP,dt,Ndt,Precision, ,\n");								
-   	printf ("%i,%f,%i,%i,%e,\n", NumP, dt, Ndt, prec, size);			/*System Parameters used in analysis*/
-   	printf("x,y,z,t,Ek,Ep\n");
+   	printf ("NumP,dt,Ndt,Precision, , ,\n");								
+   	printf ("%i,%f,%i,%i,%e,%e,\n", NumP, dt, Ndt, prec, size, e);			/*System Parameters used in analysis*/
+   	printf("x,y,z,t,Ek,Ep,\n");
    	int i;
    	
    	for (i=0; i < Ndt; i+=prec)											/*Loop through timesteps with specified precision*/
@@ -218,7 +218,7 @@ int main()
 		for (j=0; j < NumP; j++)										/*Loop over particles*/
 		{
 			/*Print particle data (x,y,z,t,Ek,Ep)*/
-			printf("%e,%e,%e,%e,%e,%e\n" , data[i][j][0], data[i][j][1], data[i][j][2], data[i][j][3], data[i][j][4], data[i][j][5]);
+			printf("%e,%e,%e,%e,%e,%e,\n" , data[i][j][0], data[i][j][1], data[i][j][2], data[i][j][3], data[i][j][4], data[i][j][5]);
 		}   	
    	}
    	   	   	
