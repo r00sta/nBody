@@ -36,7 +36,7 @@ The code uses the stdio.h, math.h and stdlib.h libraries which should be install
 	
 To run n_body2 first you need to compile it. The easiest way is with make or gcc;
 
-	make n_body2 -lm
+	make nBody -lm
 
 or 
 
