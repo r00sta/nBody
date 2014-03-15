@@ -14,7 +14,7 @@ Contents:
 
 1. Introduction
 
-n_body2 was written by me as a project to help learn computational methods for simulating structure such as galaxies, dark matter halos etc. Clearly such simulations are usually run on supercomputers not an Intel Core-2 Duo 2.13GHz desktop! As such this code is intended as a way of learning simulation methods/techniques rather that creating my own mini universe. Despite this I have tried and continue to try and make the code as efficient as possible so that at least fairly interesting test cases can be considered.
+nBody was written by me as a project to help learn computational methods for simulating structure such as galaxies, dark matter halos etc. Clearly such simulations are usually run on supercomputers not an Intel Core-2 Duo 2.13GHz desktop! As such this code is intended as a way of learning simulation methods/techniques rather that creating my own mini universe. Despite this I have tried and continue to try and make the code as efficient as possible so that at least fairly interesting test cases can be considered.
 
 This code has also served as a way for me to learn c and so the programming style is probably not very good. This is something I hope to improve with time. Any guidance would be very much welcomed! 
 
@@ -40,11 +40,11 @@ To run n_body2 first you need to compile it. The easiest way is with make or gcc
 
 or 
 
-	gcc n_body2.c -lm
+	gcc nBody.c -lm
 	
 Then to run the code;
 
-	./n_body2 > data.txt
+	./nBody > data.txt
 	
 This will also then pipe the data into a text file called data.txt.
 
