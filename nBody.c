@@ -189,6 +189,7 @@ int ImportParticles()
 		index++;
 	}
 	
+	fclose(particles_file);
 	//printf ("\n x - %1.1e, y - %1.1e, z - %1.1e \t vx - %1.1e, vy - %1.1e, vz - %1.1e \n", pos[0][0],pos[0][1],pos[0][2],vel[0][0],vel[0][1],vel[0][2]);
 	//printf ("\n x - %1.1e, y - %1.1e, z - %1.1e \t vx - %1.1e, vy - %1.1e, vz - %1.1e \n", pos[1][0],pos[1][1],pos[1][2],vel[1][0],vel[1][1],vel[1][2]);
 	
@@ -200,14 +201,8 @@ int ImportParticles()
 
 int main()
 {
-	
-
-	
-
-	
-	
-	ImportParticles();
-	//RandomPos(pos, masses, NumP, size, M); 														/*Asign random positions to particles*/
+	ImportParticles();  //Import particle setup from particles.txt
+	//RandomPos(pos, masses, NumP, size, M); //Asign random positions to particles
 	
 	/*
 	pos[0][0] = 1.0E11;
