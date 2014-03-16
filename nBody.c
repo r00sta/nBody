@@ -7,18 +7,19 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h> 
 
 
 /* #### Define Program Parameters #### */
 
-#define NumP 1000 														/*Number of Particles*/
-#define dt 10.0														/*Timestep in days*/
-#define Ndt 2000														/*Number of Timesteps*/
+#define NumP 2 														/*Number of Particles*/
+#define dt 1.0													/*Timestep in days*/
+#define Ndt 200000														/*Number of Timesteps*/
 #define G 6.67E-11 														/*Gravitational Constant*/
 #define e 1E10 															/*Epsilon Value*/
-#define prec 2													/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
+#define prec 2000												/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
 #define size 1.0E13 												/*Universe Size*/
-#define a 1.0E-5															/*a(t) expansion factor. Start value a(t=0).*/
+#define a 0.0															/*a(t) expansion factor. Start value a(t=0).*/
 #define M 2.0E28														/*Particle Mass*/
 
 
@@ -150,12 +151,63 @@ int RandomPos()
 	return 0;
 }
 
+int ImportParticles()
+{
+	FILE *particles_file;
+	particles_file = fopen("particles.txt", "r");
+	
+	char line[100];
+	int index = 0;
+	
+	fgets (line, sizeof line, particles_file); /*Skip first line*/
+		
+	while (fgets (line, sizeof line, particles_file))
+	{
+		//printf ("\n Line - %s \n", line);
+		char *result = NULL;
+		result = strtok(line, ",");
+		masses[index] = atof(result);
+		
+		result = strtok( NULL, "," );
+		pos[index][0] = atof(result);
+		
+		result = strtok( NULL, "," );
+		pos[index][1] = atof(result);
+		
+		result = strtok( NULL, "," );
+		pos[index][2] = atof(result);
+		
+		result = strtok( NULL, "," );
+		vel[index][0] = atof(result);
+		
+		result = strtok( NULL, "," );
+		vel[index][1] = atof(result);
+		
+		result = strtok( NULL, "," );
+		vel[index][2] = atof(result);
+		
+		index++;
+	}
+	
+	//printf ("\n x - %1.1e, y - %1.1e, z - %1.1e \t vx - %1.1e, vy - %1.1e, vz - %1.1e \n", pos[0][0],pos[0][1],pos[0][2],vel[0][0],vel[0][1],vel[0][2]);
+	//printf ("\n x - %1.1e, y - %1.1e, z - %1.1e \t vx - %1.1e, vy - %1.1e, vz - %1.1e \n", pos[1][0],pos[1][1],pos[1][2],vel[1][0],vel[1][1],vel[1][2]);
+	
+	return 0;
+}
+
 
 /* #### Main Program #### */
 
 int main()
 {
-	RandomPos(); 														/*Asign random positions to particles*/
+	
+
+	
+
+	
+	
+	ImportParticles();
+	//RandomPos(pos, masses, NumP, size, M); 														/*Asign random positions to particles*/
 	
 	/*
 	pos[0][0] = 1.0E11;

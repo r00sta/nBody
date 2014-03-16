@@ -24,15 +24,17 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=753;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2FnBody.c;0;4
-FILE_NAME_1=1588;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fanalysis.py;0;4
-FILE_NAME_2=2418;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fanimation.py;0;4
-FILE_NAME_3=2539;None;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2FREADME;0;4
-FILE_NAME_4=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Frandom.c;0;4
-FILE_NAME_5=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Ftest.c;0;4
-FILE_NAME_6=5890;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2Fn_body%2Foriginal%2Fn_body.py;0;4
-FILE_NAME_7=0;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2Fn_body%2Funiverse%2Funiverse_0.1.py;0;4
-FILE_NAME_8=546;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fdecay.py;0;4
+FILE_NAME_0=6381;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2FnBody.c;0;4
+FILE_NAME_1=75;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Frandom.h;0;4
+FILE_NAME_2=51;None;0;ENone;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fconditions.txt;0;4
+FILE_NAME_3=130;None;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fparticles.txt;0;4
+FILE_NAME_4=1588;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fanalysis.py;0;4
+FILE_NAME_5=131;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Fanimation.py;0;4
+FILE_NAME_6=2644;None;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2FREADME;0;4
+FILE_NAME_7=0;C;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2FnBody%2Frandom.c;0;4
+FILE_NAME_8=5890;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2Fn_body%2Foriginal%2Fn_body.py;0;4
+FILE_NAME_9=0;Python;0;EUTF-8;1;1;0;%2Fhome%2Fmatthew%2FDocuments%2FProgramming%2Fn_body%2Funiverse%2Funiverse_0.1.py;0;4
+FILE_NAME_10=4145;C;0;EUTF-8;1;1;0;%2Fusr%2Finclude%2Fstring.h;0;4
 
 [VTE]
 last_dir=/home/matthew/Documents/Programming
