@@ -12,16 +12,15 @@
 
 /* #### Define Program Parameters #### */
 
-#define NumP 2 														/*Number of Particles*/
-#define dt 1.0													/*Timestep in days*/
-#define Ndt 200000														/*Number of Timesteps*/
+#define NumP 500 														/*Number of Particles*/
+#define dt 5.0												/*Timestep in days*/
+#define Ndt 50000														/*Number of Timesteps*/
 #define G 6.67E-11 														/*Gravitational Constant*/
-#define e 1E10 															/*Epsilon Value*/
-#define prec 2000												/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
-#define size 1.0E13 												/*Universe Size*/
+#define e 1E13 															/*Epsilon Value*/
+#define prec 50												/*Set Output Precision: 1-Full Precision, >1-Less Precise*/
+#define size 1.0E16 												/*Universe Size*/
 #define a 0.0															/*a(t) expansion factor. Start value a(t=0).*/
 #define M 2.0E28														/*Particle Mass*/
-
 
 /* #### Inititalize working arrays #### */
 
